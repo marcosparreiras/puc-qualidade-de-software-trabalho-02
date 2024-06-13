@@ -18,50 +18,46 @@ interface Users {
 }
 
 export class DataProviderProxy implements DataProvider {
-  [key: string]: any;
-
   constructor(private dataProvider: DataProvider) {}
 
-  private adaptResponseField(response: { data: any[] }, resourceField: string) {
-    if (!(response.data as any)[resourceField]) {
-      throw new Error("Internal server error");
-    }
-    response.data = (response.data as any)[resourceField];
-  }
-
-  private adaptResponseId(user: any): Users {
+  private dataMapper(user: any): Users {
     return {
-      name: user.name,
-      email: user.email,
+      name: user?.name,
+      email: user?.email,
       id: user._id,
     };
   }
 
   public async getList(resource: string, params: GetListParams) {
     const response = await this.dataProvider.getList(resource, params);
-    this.adaptResponseField(response, "users");
-    response.data = response.data.map(this.adaptResponseId);
-    return response;
+    return {
+      ...response,
+      data: (response.data as any)["users"].map(this.dataMapper),
+    };
   }
 
   public async getOne(resource: string, params: GetOneParams) {
     const response = await this.dataProvider.getOne(resource, params);
-    this.adaptResponseField(response, "user");
-    response.data = this.adaptResponseId(response.data);
-    return response;
+    return {
+      ...response,
+      data: this.dataMapper((response.data as any)["user"]),
+    } as any;
   }
 
   public async create(resource: string, params: CreateParams) {
     const response = await this.dataProvider.create(resource, params);
-    response.data = this.adaptResponseId(response.data);
-    return response;
+    return {
+      ...response,
+      data: this.dataMapper(response.data),
+    } as any;
   }
 
   public async update(resource: string, params: UpdateParams) {
     const response = await this.dataProvider.update(resource, params);
-    this.adaptResponseField(response, "user");
-    response.data = this.adaptResponseId(response.data);
-    return response;
+    return {
+      ...response,
+      data: this.dataMapper((response.data as any)["user"]),
+    } as any;
   }
 
   public async getMany(resource: string, params: GetManyParams) {
@@ -80,10 +76,24 @@ export class DataProviderProxy implements DataProvider {
   }
 
   public async delete(resource: string, params: DeleteParams) {
-    return this.dataProvider.delete(resource, params);
+    try {
+      const reponse = await this.dataProvider.delete(resource, params);
+      return reponse;
+    } catch (error: unknown) {
+      return {
+        data: params.id,
+      };
+    }
   }
 
   public async deleteMany(resource: string, params: DeleteManyParams) {
-    return this.dataProvider.deleteMany(resource, params);
+    try {
+      const reponse = await this.dataProvider.deleteMany(resource, params);
+      return reponse;
+    } catch (error: unknown) {
+      return {
+        data: params.ids,
+      };
+    }
   }
 }
