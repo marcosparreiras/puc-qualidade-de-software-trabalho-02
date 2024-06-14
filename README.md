@@ -10,7 +10,9 @@ Certifique-se de ter o NodeJs instalado em sua máquina antes de prosseguir.
 
 - [backend](https://github.com/marcosparreiras/puc-qualidade-de-software-trabalho-01)
 
-IMPORTANTE: Certifique-se que tanto o servidor quanto o banco de dados estão em execução em sua máquina antes de prosseguir.
+IMPORTANTE: Não utilize a versão do backend enviado pelo Canvas na atividade anterior, a versão disponível no repositório sofreu algumas alterações para a integração com o frontend como a habilitação do cors e outros pequenos ajustes demandados pela integração.
+
+IMPORTANTE: Certifique-se que tanto o servidor quanto o banco de dados estão em execução e corretamente configurados em sua máquina antes de prosseguir.
 
 2. Faça o clone deste projeto:
 
@@ -30,11 +32,11 @@ npm install
 npm run dev
 ```
 
-4. Para testar a aplicação execute o seguinte comando:
+5. Para testar a aplicação, primeiro inicie a aplicação em modo de desenvolvimento e depois em outro shell execute o seguinte comando no diretório deste projeto: 
 
 ```sh
 npm run cy:open
 ```
 
 O comando acima irá iniciar o Cypress. Com o Cypress iniciado você deve primeiro selecionar "E2E Testing" e depois selecionar um browser e clicar em "Start E2E Testing".
-Após isso será exibido uma tela com a lista de testes de interface desenvolvidos. Clique em um dos testes para executar.
+Após isso será iniciado o browser escolhido e exibido uma tela com a lista de testes de interface desenvolvidos. Clique em um dos testes para executar.
