@@ -1,32 +1,40 @@
-# trabalho02
+# Interface administrativa para fazer a gestão de usuários
 
-## Installation
+## Teste a aplicação em sua máquina
 
-Install the application dependencies by running:
+Certifique-se de ter o NodeJs instalado em sua máquina antes de prosseguir.
+
+- [NodeJs](https://nodejs.org/en)
+
+1. Acesse o repositório do servidor do sistema de usuários e siga os passos lá descritos para executar o servidor:
+
+- [backend](https://github.com/marcosparreiras/puc-qualidade-de-software-trabalho-01)
+
+IMPORTANTE: Certifique-se que tanto o servidor quanto o banco de dados estão em execução em sua máquina antes de prosseguir.
+
+2. Faça o clone deste projeto:
+
+```sh
+git clone https://github.com/marcosparreiras/puc-qualidade-de-software-trabalho-02.git
+```
+
+3. Navegue ate o diretório do projeto e instale as dependências do projeto com o comando:
 
 ```sh
 npm install
 ```
 
-## Development
-
-Start the application in development mode by running:
+4. Inicie a aplicação em modo de desenvolvimento:
 
 ```sh
 npm run dev
 ```
 
-## Production
-
-Build the application in production mode by running:
+4. Para testar a aplicação execute o seguinte comando:
 
 ```sh
-npm run build
+npm run cy:open
 ```
 
-## DataProvider
-
-The included data provider use [ra-data-json-server](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-json-server). It fits REST APIs powered by [JSON Server](https://github.com/typicode/json-server), such as [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
-
-You'll find an `.env` file at the project root that includes a `VITE_JSON_SERVER_URL` variable. Set it to the URL of your backend. By default, we set it to targets [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
-
+O comando acima irá iniciar o Cypress. Com o Cypress iniciado você deve primeiro selecionar "E2E Testing" e depois selecionar um browser e clicar em "Start E2E Testing".
+Após isso será exibido uma tela com a lista de testes de interface desenvolvidos. Clique em um dos testes para executar.
